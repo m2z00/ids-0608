@@ -1,0 +1,45 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!------ Include the above in your HEAD tag ---------->
+</head>
+<body>
+
+    <div class="wrapper fadeInDown">
+      <div id="formContent">
+        <!-- Tabs Titles -->
+
+        <!-- Icon -->
+        <div class="fadeIn first">
+            <br/>
+          <img src="{% static 'img/user.png' %}"  style="width : 50px; height : 50px;" id="icon" alt="User Icon" />
+            <br/>
+        </div>
+
+        <!-- Login Form -->
+        <form method="POST">
+        {% csrf_token %}
+
+          <input type="text" id="login" class="fadeIn second"  name = "userid" placeholder="ID"required>
+          <input type="text" id="password" class="fadeIn third" name= "userpw" placeholder="PASSWORD" required>
+          <input type="submit" class="fadeIn fourth" value="Log In" required>
+        </form>
+
+        <!-- Remind Passowrd -->
+        <div id="formFooter">
+          <a class="underlineHover" href="#">Forgot Password?</a>
+        </div>
+
+      </div>
+    </div>
+</body>
+</html>

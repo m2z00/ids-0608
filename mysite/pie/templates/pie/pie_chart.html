@@ -1,0 +1,285 @@
+{% load static %}
+<html>
+	<head>
+		<title>Verti by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{% static 'css/main.css' %}" />
+	</head>
+	<body class="is-preload homepage">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header-wrapper">
+					<header id="header" class="container">
+						<!-- Logo -->
+							<div id="logo">
+								<h1>AMI_IDS</h1>
+							</div>
+					</header>
+				</div>
+			<!-- Features -->
+				<div id="features-wrapper">
+					<div class="container">
+						<div class="row">
+							<div class="col-8 col-12-medium" >
+
+								<!--로그 창-->
+
+									<section class="box feature" style="height:400px">
+										<div class="inner" >
+											<header>
+												<h2>Current Attack Log</h2>
+											</header>
+											<div style="width:100%; height:300px; overflow:auto">
+											<table class="table table-dark">
+											  <tbody>
+											  <!-- views.py 에서 가져온 변수 logg를 이용하여 log출력 -->
+											  {% for log in logg %}
+											    {% if log.label == 1 %}
+											  	<tr>
+											      <th scope="row">{{ log.id }}</th>
+											      <td style="color : red">
+													  [공격탐지] ({{ log.srcip}}:{{ log.srcport }}) > ({{ log.dstip }}:{{ log.srcport }}) {{ log.protocol }}
+												  </td>
+											    </tr>
+											  	{% else %}
+											  	<!--<tr>
+											      <th scope="row">{{ log.id }}</th>
+											      <td>
+													 ({{ log.srcip}}:{{ log.srcport }}) > ({{ log.dstip }}:{{ log.srcport }}) {{ log.protocol }}
+												  </td>
+											    </tr>-->
+											  	{% endif %}
+											  {% endfor %}
+											  </tbody>
+											</table>
+										</div>
+									</div>
+									</section>
+							</div>
+
+							<div class="col-4 col-12-medium">
+
+								<!-- 총 공격 카운트 수-->
+
+									<section class="box feature" style="height:400px">
+										<div class="inner">
+												<h2>Attack Counts</h2>
+												<div style="vertical-align : middle; 																																																	text-align : center;">
+												<p style = "padding : 0em 0em 2em 0em"> 최근 10분간 </p>
+
+												 <!-- views.py 에서 가져온 변수 attack_count 이용하여 공격 갯수 출력 -->
+												{% if attack_count %}
+												<span id = "ddos_counts" style ="font-size:5em; font-weight: bold; color:red">{{ attack_count }}</span>
+												{% endif %}
+												<span>건의</span>
+												<br/>
+												<P style = "padding : 2em 0em 0em 0em"> DDoS 공격이 발생하였습니다. </p>
+												</div>
+										</div>
+									</section>
+							</div>
+						<div class="col-4 col-12-medium">
+
+								<!--파이 그래프 Top-five -프로토콜 타입-->
+
+									<section class="box feature">
+										<div class="inner" >
+											<header>
+												<h2>Top5 Protocol</h2>
+											</header>
+											<div id="container2" style="width: 100%;">
+												<canvas id="pie-chart"></canvas>
+											</div>
+										</div>
+									</section>
+							</div>
+
+
+
+							<div class="col-4 col-12-medium">
+								<!--파이 그래프 Top-five -호스트 ip-->
+
+									<section class="box feature">
+										<div class="inner" >
+											<header>
+												<h2>Top5 Src-ip</h2>
+											</header>
+											<div id="container3" style="width: 100%;">
+												<canvas id="pie-chart2"></canvas>
+											</div>
+										</div>
+									</section>
+
+							</div>
+
+							<div class="col-4 col-12-medium">
+								<!--파이 그래프 Top-five -src port-->
+
+									<section class="box feature">
+										<div class="inner" >
+											<header>
+												<h2>Top5 Src-port</h2>
+											</header>
+											<div id="container4" style="width: 100%;">
+												<canvas id="pie-chart3"></canvas>
+											</div>
+										</div>
+									</section>
+
+							</div>
+							<div class="col-6 col-12-medium">
+								<!-- 그래프 창  -->
+									<section class="box feature">
+										<div class="inner" >
+											<header>
+												<h2>Flow duration Graph</h2>
+											</header>
+											<div id="container5" style="width: 100%;">
+												<canvas id="line-chart2"></canvas>
+											</div>
+										</div>
+									</section>
+							</div>
+
+							<div class="col-6 col-12-medium">
+								<!-- 라인 그래프 창  -->
+									<section class="box feature">
+										<div class="inner" >
+											<header>
+												<h2>PPS duration Graph</h2>
+											</header>
+											<div id="container" style="width: 100%;">
+												<canvas id="line-chart"></canvas>
+											</div>
+										</div>
+									</section>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			<!-- Footer -->
+				<div id="footer-wrapper">
+					<footer id="footer" class="container">
+
+						<div class="row">
+							<div class="col-12">
+								<div id="copyright">
+									<ul class="menu">
+										<li>&copy;Capstone project : MIJOO SHIN, SEONGSU YOON, SUMIN LIM</li><li>AMI_DDoS_IDS</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</footer>
+				</div>
+			</div>
+
+		<!-- Scripts -->
+		<script src="{% static 'js/jquery.min.js' %}"></script>
+		<script src="{% static 'js/jquery.dropotron.min.js' %}"></script>
+		<script src="{% static 'js/browser.min.js' %}"></script>
+		<script src="{% static 'js/breakpoints.min.js' %}"></script>
+		<script src="{% static 'js/util.js' %}"></script>
+		<script src="{% static 'js/main.js' %}"></script>
+	    <script src="{% static 'js/Chart.min.js' %}"></script>
+		<script>
+			var config = {
+		    type: 'pie',
+		  	data: {
+				datasets: [{
+			  		data: {{ data|safe }},
+			  		backgroundColor: [
+						'#4CAF50', '#F44336', '#2196F3', '#FFEB3B', '#9C27B0'
+				  	],
+				 	label: 'protocol'
+				}],
+				labels: {{ labels|safe }}
+			  },
+			  options: {
+				responsive: true
+		  		}
+			};
+			var config2 = {
+		    type: 'line',
+		  	data: {
+				datasets: [{
+			  		data: {{ data2|safe }},
+			  		backgroundColor: [
+						'#4CAF50', '#F44336', '#2196F3', '#FFEB3B', '#9C27B0'
+				  	],
+				 	label: 'pps'
+				}],
+				labels: {{ labels2|safe }}
+			  },
+			  options: {
+				responsive: true
+		  		}
+			};
+			var config3 = {
+		    type: 'pie',
+		  	data: {
+				datasets: [{
+			  		data: {{ data3|safe }},
+			  		backgroundColor: [
+						'#4CAF50', '#F44336', '#2196F3', '#FFEB3B', '#9C27B0'
+				  	],
+				 	label: ''
+				}],
+				labels: {{ labels3|safe }}
+			  },
+			  options: {
+				responsive: true
+		  		}
+			};
+			var config4 = {
+		    type: 'line',
+		  	data: {
+				datasets: [{
+			  		data: {{ data4|safe }},
+			  		backgroundColor: [
+						'#4CAF50', '#F44336', '#2196F3', '#FFEB3B', '#9C27B0'
+				  	],
+				 	label: 'flow-duration'
+				}],
+				labels: {{ labels4|safe }}
+			  },
+			  options: {
+				responsive: true
+		  		}
+			};
+			var config5 = {
+		    type: 'pie',
+		  	data: {
+				datasets: [{
+			  		data: {{ data3|safe }},
+			  		backgroundColor: [
+						'#4CAF50', '#F44336', '#2196F3', '#FFEB3B', '#9C27B0'
+				  	],
+				 	label: ''
+				}],
+				labels: {{ labels5|safe }}
+			  },
+			  options: {
+				responsive: true
+		  		}
+			};
+			window.onload = function() {
+			  var ctx = document.getElementById('pie-chart').getContext('2d');
+			  var ctx2 = document.getElementById('line-chart').getContext('2d');
+			  var ctx3 = document.getElementById('pie-chart2').getContext('2d');
+			  var ctx4 = document.getElementById('line-chart2').getContext('2d');
+			  var ctx5 = document.getElementById('pie-chart3').getContext('2d');
+
+			  window.myPie = new Chart(ctx, config);
+			  window.myPie = new Chart(ctx2, config2);
+			  window.myPie = new Chart(ctx3, config3);
+			  window.myPie = new Chart(ctx4, config4);
+			  window.myPie = new Chart(ctx5, config5);
+
+			}
+		</script>
+	</body>
+</html>
